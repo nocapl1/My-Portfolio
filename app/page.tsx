@@ -39,9 +39,57 @@ const techPanels = [
   { label: "C++" },
 ];
 
+// --- FOLDER CARDS DATA ---
+const folderCards = [
+  {
+    id: 0,
+    title: "LANGUAGES",
+    letter: "L",
+    color: "#00d2ff", // Neon Blue
+    tabLeft: "0%",
+    roundedClass: "rounded-tl-none rounded-tr-xl rounded-b-xl",
+    items: [
+      { name: "JavaScript / TypeScript", level: 90 },
+      { name: "Python 3", level: 85 },
+      { name: "Java / C++", level: 80 },
+    ]
+  },
+  {
+    id: 1,
+    title: "FRAMEWORKS",
+    letter: "F",
+    color: "#b20a2c", // Neon Red
+    tabLeft: "33.33%",
+    roundedClass: "rounded-xl",
+    items: [
+      { name: "React & Next.js", level: 95 },
+      { name: "Spring Boot", level: 75 },
+      { name: "Tailwind CSS", level: 90 },
+    ]
+  },
+  {
+    id: 2,
+    title: "TOOLING",
+    letter: "T",
+    color: "#F27121", // Neon Orange
+    tabLeft: "66.66%",
+    roundedClass: "rounded-tr-none rounded-tl-xl rounded-b-xl",
+    items: [
+      { name: "Git / Linux", level: 85 },
+      { name: "Figma UI/UX", level: 80 },
+      { name: "Docker / CI/CD", level: 70 },
+    ]
+  }
+];
+
 export default function Home() {
   const premiumEase = [0.16, 1, 0.3, 1];
+  
   const [activeProject, setActiveProject] = useState<typeof projects[0] | null>(null);
+  
+  // --- FOLDER STATE ---
+  const [isFolderHovered, setIsFolderHovered] = useState(false);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   // --- DYNAMIC BACKGROUND INTERACTION ---
   const springConfig = { damping: 40, stiffness: 100, mass: 1 };
@@ -82,7 +130,6 @@ export default function Home() {
             backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
             backgroundSize: '40px 40px'
           }}></div>
-          
           <div className="absolute inset-0 opacity-[0.2] mix-blend-color-burn" style={{ background: 'radial-gradient(circle at 10% 10%, #FFB6C1 0%, transparent 20%), radial-gradient(circle at 90% 90%, #87CEFA 0%, transparent 20%), radial-gradient(circle, rgba(229, 57, 53, 0.15) 0%, rgba(229, 57, 53, 0.05) 30%, transparent 70%)' }}></div>
           <motion.div 
             className="w-[1000px] h-[1000px] pointer-events-none rounded-full"
@@ -93,7 +140,6 @@ export default function Home() {
         {/* --- 1. HERO SECTION --- */}
         <section id="hero" className="flex flex-col justify-start items-center relative pt-8 pb-12 min-h-[90vh] text-center w-full">
           
-          {/* Top Left Title */}
           <div className="absolute top-8 left-8 z-30 flex flex-col items-start text-left">
             <motion.span initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease: premiumEase }} className="font-serif italic text-white/80 text-xl md:text-2xl tracking-wide">
               Computer Science.
@@ -103,14 +149,12 @@ export default function Home() {
             </motion.h2>
           </div>
 
-          {/* Top Right EST Badge */}
           <div className="absolute top-8 right-8 z-30 hidden md:block">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, ease: premiumEase }} className="border border-white/20 rounded-lg px-4 py-1.5 font-mono text-[10px] tracking-widest text-white/70 bg-black/40 backdrop-blur-md cursor-default">
                 EST. 2025
             </motion.div>
           </div>
           
-          {/* 3D Hand */}
           <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[400px] md:h-[600px] z-10 pointer-events-none flex items-center justify-center">
             <img 
               src="/hand.png" 
@@ -119,7 +163,6 @@ export default function Home() {
             />
           </div>
 
-          {/* FERRIS WHEEL */}
           <motion.div 
             className="absolute top-[55%] left-1/2 w-[240px] md:w-[440px] h-[240px] md:h-[440px] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none hidden md:block"
             animate={{ rotate: 360 }}
@@ -131,11 +174,7 @@ export default function Home() {
               const y = 50 + 50 * Math.sin(angle);
               
               return (
-                <div 
-                  key={panel.label}
-                  className="absolute"
-                  style={{ top: `${y}%`, left: `${x}%`, transform: 'translate(-50%, -50%)' }}
-                >
+                <div key={panel.label} className="absolute" style={{ top: `${y}%`, left: `${x}%`, transform: 'translate(-50%, -50%)' }}>
                   <motion.div
                     animate={{ rotate: -360 }}
                     transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
@@ -149,26 +188,16 @@ export default function Home() {
             })}
           </motion.div>
 
-          {/* DYNAMIC & READABLE CENTERED NAME */}
           <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-full flex justify-center items-center mt-8">
-            
-            {/* Contrast Shield: A soft blur behind the text to dim the hand slightly and boost readability */}
             <div className="absolute w-[80%] max-w-[800px] h-[100px] bg-black/60 blur-[40px] rounded-full pointer-events-none -z-10"></div>
-
+            
             <motion.h1 variants={containerVariants} initial="hidden" animate="visible" className="font-serif text-[clamp(3rem,8vw,9rem)] font-bold tracking-tighter leading-none text-white cursor-default flex flex-row flex-nowrap whitespace-nowrap overflow-visible justify-center text-center w-full">
               {nameText.split("").map((char, index) => (
                 <motion.span 
                   key={index} 
                   variants={letterVariants}
-                  // Interactive Wave Hover
-                  whileHover={{ 
-                      y: -15, 
-                      scale: 1.05, 
-                      color: "#e53935", 
-                      textShadow: "0px 15px 30px rgba(229,57,53,0.8)" 
-                  }}
+                  whileHover={{ y: -15, scale: 1.05, color: "#e53935", textShadow: "0px 15px 30px rgba(229,57,53,0.8)" }}
                   transition={{ type: "spring", stiffness: 300, damping: 10 }}
-                  // Built-in deep shadow for baseline readability
                   className="inline-block relative z-10 drop-shadow-[0_10px_15px_rgba(0,0,0,1)] transition-colors duration-300"
                 >
                   {char === " " ? "\u00A0" : char}
@@ -196,50 +225,183 @@ export default function Home() {
             </motion.div>
         </div>
 
-        {/* --- 3. HORIZONTAL SKILL CARDS --- */}
-        <section id="skills" className="relative flex flex-col mb-32 z-20 w-full max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full relative z-20">
-            
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }} className="glow-card glow-figma w-full p-5 rounded-2xl flex flex-col justify-center border border-white/5 bg-[#0f0f0f]/80 backdrop-blur-sm cursor-default">
-              <div className="flex items-center gap-3 mb-2">
-                 <div className="w-8 h-8 rounded border border-white/10 bg-black flex items-center justify-center font-serif text-lg font-bold text-white">L</div>
-                 <h3 className="font-serif text-xl text-white">Languages</h3>
-              </div>
-              <p className="text-[13px] text-gray-400 font-mono tracking-tight pl-11">JS/TS, Python, Java</p>
-            </motion.div>
+        {/* --- 3. 3D FOLDER WITH INDEX TABS --- */}
+        <section id="skills" className="relative flex flex-col items-center justify-center pt-20 mb-40 w-full">
+          
+          <div className="overflow-hidden border-b border-white/10 pb-4 mb-32 flex justify-between items-end relative w-full">
+            <motion.h2 initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: premiumEase }} className="font-serif text-4xl text-white cursor-default flex items-center gap-4">
+              TECHNICAL_STACK 
+              <span className="font-mono text-[10px] bg-white/10 text-portfolioRed px-3 py-1 rounded-full uppercase tracking-widest border border-portfolioRed/30 animate-pulse">
+                Interact with Folder
+              </span>
+            </motion.h2>
+          </div>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.1 }} className="glow-card glow-framer w-full p-5 rounded-2xl flex flex-col justify-center border border-white/5 bg-[#0f0f0f]/80 backdrop-blur-sm cursor-default">
-              <div className="flex items-center gap-3 mb-2">
-                 <div className="w-8 h-8 rounded border border-white/10 bg-black flex items-center justify-center font-serif text-lg font-bold text-white">F</div>
-                 <h3 className="font-serif text-xl text-white">Frameworks</h3>
-              </div>
-              <p className="text-[13px] text-gray-400 font-mono tracking-tight pl-11">React, Next.js, Spring</p>
-            </motion.div>
+          <div 
+            className="relative w-full max-w-4xl h-[550px] flex items-end justify-center perspective-[1400px]"
+            onMouseEnter={() => setIsFolderHovered(true)}
+            onMouseLeave={() => {
+              setIsFolderHovered(false);
+              setHoveredCard(null);
+            }}
+          >
+            {/* --- Folder Back Cover --- */}
+            <motion.div 
+              animate={{
+                boxShadow: isFolderHovered ? "0 0 80px rgba(229, 57, 53, 0.2)" : "0 25px 50px -12px rgba(0,0,0,0.8)",
+                borderColor: isFolderHovered ? "rgba(229, 57, 53, 0.4)" : "rgba(255, 255, 255, 0.1)"
+              }}
+              transition={{ duration: 0.4 }}
+              className="absolute bottom-0 w-[480px] md:w-[650px] h-[380px] bg-[#111] rounded-t-xl border-t border-l border-r z-0"
+            />
 
-            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.2 }} className="glow-card glow-deepthink w-full p-5 rounded-2xl flex flex-col justify-center border border-white/5 bg-[#0f0f0f]/80 backdrop-blur-sm cursor-default">
-              <div className="flex items-center gap-3 mb-2">
-                 <div className="w-8 h-8 rounded border border-white/10 bg-black flex items-center justify-center font-serif text-lg font-bold text-white">T</div>
-                 <h3 className="font-serif text-xl text-white">Tooling</h3>
-              </div>
-              <p className="text-[13px] text-gray-400 font-mono tracking-tight pl-11">Figma, Git, Linux</p>
+            {/* --- Vertical Tabbed Cards Container --- */}
+            <div className="absolute bottom-0 z-10 w-[440px] md:w-[610px] h-[380px] flex items-end justify-center pointer-events-none">
+                
+                {folderCards.map((card, index) => {
+                  const isHovered = hoveredCard === card.id;
+                  
+                  return (
+                    <motion.div 
+                      key={card.id}
+                      initial={false}
+                      onMouseEnter={() => setHoveredCard(card.id)}
+                      onMouseLeave={() => setHoveredCard(null)}
+                      animate={{
+                        // Smoothly stays in place when hovered, only drops in when folder closes
+                        y: isFolderHovered ? -60 : 0,
+                        zIndex: isHovered ? 50 : index + 10,
+                        // --- DYNAMIC GLOWING EFFECTS ---
+                        boxShadow: isHovered 
+                            ? `0 0 60px ${card.color}80, 0 20px 50px rgba(0,0,0,0.8)` // Intense Bright Glow on Hover
+                            : isFolderHovered 
+                                ? `0 0 15px ${card.color}30` // Subtle Glow inside opened folder
+                                : "none", // No glow when closed
+                        borderColor: isHovered 
+                            ? `${card.color}` // Solid bright border
+                            : isFolderHovered 
+                                ? `${card.color}60` // Semi-transparent glowing border
+                                : "rgba(255, 255, 255, 0.1)" // Dull border when closed
+                      }}
+                      transition={{ type: "spring", damping: 20, stiffness: 120 }}
+                      className={`absolute bottom-0 w-full h-full bg-[#0a0a0a]/95 backdrop-blur-md border pointer-events-auto cursor-pointer flex flex-col ${card.roundedClass}`}
+                    >
+                      {/* INDEX TAB STICKING OUT TOP */}
+                      <motion.div 
+                        animate={{
+                            borderBottom: isHovered ? `1px solid ${card.color}` : isFolderHovered ? `1px solid ${card.color}60` : "1px solid #0a0a0a",
+                            borderColor: isHovered ? `${card.color}` : isFolderHovered ? `${card.color}60` : "rgba(255,255,255,0.1)",
+                            boxShadow: isHovered ? `0 -10px 20px ${card.color}30` : "none"
+                        }}
+                        className="absolute h-10 flex items-center justify-center border-t border-l border-r bg-[#0a0a0a]/95 backdrop-blur-md rounded-t-xl transition-colors z-20 group"
+                        style={{
+                          left: card.tabLeft,
+                          width: "33.33%",
+                          top: "-39px",
+                        }}
+                      >
+                         <span className="font-mono text-[10px] md:text-xs text-white/80 uppercase tracking-widest group-hover:text-white transition-colors flex items-center gap-2">
+                           <motion.span 
+                             animate={{ 
+                               boxShadow: (isHovered || isFolderHovered) ? `0 0 10px ${card.color}` : "none" 
+                             }}
+                             className="w-1.5 h-1.5 rounded-full" 
+                             style={{ backgroundColor: card.color }}
+                           ></motion.span>
+                           {card.title}
+                         </span>
+                      </motion.div>
+
+                      {/* CARD BODY CONTENT */}
+                      <div className="w-full h-full relative z-10 p-6 md:p-8 flex flex-col">
+                        <div className="flex items-center gap-4 mb-6">
+                           <div className="w-12 h-12 rounded-lg border border-white/10 bg-[#111] flex items-center justify-center font-serif text-2xl font-bold" style={{ color: card.color, textShadow: (isHovered || isFolderHovered) ? `0 0 15px ${card.color}80` : "none" }}>
+                             {card.letter}
+                           </div>
+                           <h3 className="font-serif text-3xl text-white" style={{ textShadow: isHovered ? `0 0 20px ${card.color}40` : "none" }}>
+                             {card.title}
+                           </h3>
+                        </div>
+                        
+                        <div className="mt-4 flex flex-col gap-6 w-full">
+                          {card.items.map((item, i) => (
+                            <div key={i} className="flex flex-col gap-2">
+                               <div className="flex justify-between font-mono text-sm text-gray-300">
+                                 <span>{item.name}</span>
+                               </div>
+                               <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
+                                  <motion.div 
+                                    initial={{ width: 0 }}
+                                    animate={{ 
+                                        width: isHovered ? `${item.level}%` : 0,
+                                        boxShadow: isHovered ? `0 0 10px ${card.color}` : "none" 
+                                    }}
+                                    transition={{ duration: 0.8, delay: 0.1 + (i * 0.1), ease: premiumEase }}
+                                    className="h-full rounded-full"
+                                    style={{ backgroundColor: card.color }}
+                                  />
+                               </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )
+                })}
+            </div>
+
+            {/* --- Folder Front Flap --- */}
+            <motion.div 
+                style={{ transformOrigin: "bottom" }}
+                initial={false}
+                animate={{ 
+                  rotateX: isFolderHovered ? -75 : 0, 
+                  boxShadow: isFolderHovered ? "0 -10px 80px rgba(229,57,53,0.3)" : "0 -10px 40px rgba(0,0,0,0.8)",
+                  borderColor: isFolderHovered ? "rgba(229, 57, 53, 0.6)" : "rgba(255, 255, 255, 0.15)"
+                }} 
+                transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }} 
+                className="absolute bottom-0 w-[480px] md:w-[650px] h-[380px] bg-gradient-to-t from-[#050505] to-[#1a1a1a] rounded-t-xl border-t border-l border-r z-40 flex items-center justify-center pointer-events-none"
+            >
+                <div className="w-full h-full flex flex-col justify-center items-center opacity-40 border-[12px] border-[#0a0a0a] rounded-t-xl p-4">
+                     <div className="w-full border-b-2 border-dashed border-white/50 mb-3"></div>
+                     <span className="font-mono text-3xl tracking-[0.5em] text-white/90">CONFIDENTIAL</span>
+                     <div className="w-full border-b-2 border-dashed border-white/50 mt-3"></div>
+                </div>
             </motion.div>
 
           </div>
         </section>
 
         {/* --- 4. PROJECTS SECTION --- */}
-        <section id="projects" className="min-h-[60vh] relative z-20">
+        <section id="projects" className="min-h-screen pt-16 relative z-20">
           <div className="overflow-hidden border-b border-white/10 pb-4 mb-12 flex justify-between items-end relative">
-            <motion.h2 initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: premiumEase }} className="font-serif text-3xl md:text-4xl text-white">
+            <div className="w-[200px] absolute right-[0vw] top-[50%] h-[1px] border-b border-dashed border-portfolioRed pointer-events-none opacity-50 transform rotate-12"></div>
+            <motion.h2 
+              initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: premiumEase }}
+              className="font-serif text-4xl text-white"
+            >
               SELECTED PROJECTS
             </motion.h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
             {projects.map((project, index) => (
-              <motion.div key={project.id} initial={{ opacity: 0, scale: 0.98, y: 30 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.5, delay: index * 0.1 + 0.1, ease: premiumEase }} whileHover={{ scale: 1.03, y: -10, borderColor: "rgba(229, 57, 53, 0.6)", boxShadow: "0 25px 50px -12px rgba(229, 57, 53, 0.25)" }} whileTap={{ scale: 0.96 }} onClick={() => setActiveProject(project)} className="glass-panel rounded-2xl p-2 group cursor-pointer relative overflow-hidden">
+              <motion.div 
+                key={project.id}
+                initial={{ opacity: 0, scale: 0.98, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 + 0.1, ease: premiumEase }}
+                whileHover={{ 
+                  scale: 1.03, y: -10, borderColor: "rgba(229, 57, 53, 0.6)", boxShadow: "0 25px 50px -12px rgba(229, 57, 53, 0.25)" 
+                }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => setActiveProject(project)}
+                className="glass-panel rounded-2xl p-2 group cursor-pointer relative overflow-hidden"
+              >
                 <div className="p-6 h-full flex flex-col relative z-10 rounded-xl bg-black/60 group-hover:bg-black transition-colors duration-300 pointer-events-none">
                   <div className="flex justify-between items-start mb-16">
+                    <div className="w-12 h-12 absolute left-1/2 -translate-x-1/2 -top-12 h-[2px] border-b-2 border-dashed border-white/20 pointer-events-none"></div>
                     <div className="w-12 h-12 rounded-lg border border-white/10 bg-black flex items-center justify-center shadow-lg group-hover:bg-portfolioRed transition-all duration-300">
                       <span className="text-portfolioRed group-hover:text-white font-serif font-bold text-xl">{project.letter}</span>
                     </div>
@@ -249,7 +411,7 @@ export default function Home() {
                   </div>
 
                   <div className="mt-auto">
-                    <h3 className="font-serif text-2xl md:text-3xl text-white mb-3 flex items-center justify-between">
+                    <h3 className="font-serif text-3xl text-white mb-3 flex items-center justify-between">
                       {project.title}
                       <span className="text-portfolioRed opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all font-mono text-xl">&rarr;</span>
                     </h3>
@@ -270,16 +432,14 @@ export default function Home() {
 
         {/* --- 5. FOOTER --- */}
         <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: premiumEase }} className="pt-16 pb-32">
-          <div className="mt-16 md:mt-32 pt-8 flex flex-col md:flex-row justify-between items-center border-t border-white/10 font-mono text-sm text-gray-500 relative cursor-default gap-8 md:gap-0">
-              <a href="mailto:hello@nicoleliang.com" className="hover:text-white transition-colors relative z-10 cursor-pointer">
+          <div className="mt-32 pt-8 flex justify-between items-center border-t border-white/10 font-mono text-sm text-gray-500 relative">
+              <div className="w-[100px] absolute right-[-50px] -top-8 h-10 border-r border-t-0 border-dashed border-white/20 opacity-50"></div>
+              <a href="mailto:hello@nicoleliang.com" className="hover:text-white transition-colors relative z-10">
                 hello@nicoleliang.com
               </a>
               <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="bg-white text-black px-6 py-2 rounded-full font-serif italic text-xs tracking-widest hover:bg-portfolioRed hover:text-white transition-colors cursor-pointer relative z-10">
                   N.L.
               </motion.div>
-          </div>
-          <div className="mt-16 flex justify-center w-full">
-            <h3 className="font-serif italic text-white/50 text-3xl md:text-4xl cursor-default text-center">Make magic happen.</h3>
           </div>
         </motion.section>
       </div>
@@ -291,15 +451,18 @@ export default function Home() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4 }} className="absolute inset-0 bg-black/80 backdrop-blur-md cursor-pointer" onClick={() => setActiveProject(null)} />
             <motion.div initial={{ opacity: 0, y: 100, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 50, scale: 0.95 }} transition={{ duration: 0.5, ease: premiumEase }} className="relative w-full max-w-2xl bg-[#0a0a0a] border border-portfolioRed/40 rounded-3xl p-8 md:p-12 shadow-[0_0_80px_rgba(229,57,53,0.15)] overflow-hidden cursor-default">
               <div className="absolute top-0 right-0 w-64 h-64 bg-portfolioRed/20 rounded-full blur-[100px] pointer-events-none"></div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -top-8 w-1 h-12 border-l-2 border-dashed border-portfolioRed/30 opacity-80 z-20"></div>
+
               <div className="flex justify-between items-start mb-8 relative z-10">
                 <div>
                   <span className="font-mono text-xs text-portfolioRed tracking-widest mb-2 block uppercase">{activeProject.type}</span>
-                  <h2 className="font-serif text-3xl md:text-4xl text-white">{activeProject.title}</h2>
+                  <h2 className="font-serif text-4xl text-white">{activeProject.title}</h2>
                 </div>
                 <button onClick={() => setActiveProject(null)} className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-portfolioRed hover:border-portfolioRed transition-all cursor-pointer">
                   ✕
                 </button>
               </div>
+
               <div className="relative z-10 mb-10">
                 <p className="font-sans text-gray-300 leading-relaxed text-lg mb-8 font-light">{activeProject.longDesc}</p>
                 <div className="mb-4 font-mono text-xs text-gray-500 uppercase tracking-widest">Technologies Used</div>
@@ -311,6 +474,7 @@ export default function Home() {
                   ))}
                 </div>
               </div>
+
               <div className="relative z-10 flex gap-4 pt-6 border-t border-white/10">
                 <a href={activeProject.github} target="_blank" rel="noopener noreferrer" className="bg-portfolioRed text-white px-8 py-3 rounded-full font-mono text-sm tracking-widest hover:bg-white hover:text-black transition-colors flex items-center gap-2 cursor-pointer">
                   VIEW GITHUB ↗
