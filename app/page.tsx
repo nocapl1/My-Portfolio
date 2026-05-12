@@ -95,9 +95,9 @@ const motes = [
 
 export default function Home() {
   const premiumEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
-  
+
   const [activeProject, setActiveProject] = useState<typeof projects[0] | null>(null);
-  
+
   // --- FOLDER STATE ---
   const [isFolderHovered, setIsFolderHovered] = useState(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -138,26 +138,26 @@ export default function Home() {
   const handleAiSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!aiQuery.trim()) return;
-    
+
     setIsAiTyping(true);
     setAiResponse(null);
-    
+
     setTimeout(() => {
       const lowerQuery = aiQuery.toLowerCase();
       if (lowerQuery.includes("quantum")) {
-         setAiResponse("QUANTUM FLUX is a next-generation Next.js application designed to handle massive data throughput while maintaining a flawless 60fps animation pipeline.");
+        setAiResponse("QUANTUM FLUX is a next-generation Next.js application designed to handle massive data throughput while maintaining a flawless 60fps animation pipeline.");
       } else if (lowerQuery.includes("react") || lowerQuery.includes("framework")) {
-         setAiResponse("Nicole specializes in React and Next.js for the frontend, combining it with Tailwind CSS and Framer Motion to build highly interactive, cinematic UI experiences.");
+        setAiResponse("Nicole specializes in React and Next.js for the frontend, combining it with Tailwind CSS and Framer Motion to build highly interactive, cinematic UI experiences.");
       } else if (lowerQuery.includes("backend") || lowerQuery.includes("java")) {
-         setAiResponse("On the backend, Nicole has strong proficiency in Java and Spring Boot for building robust APIs, as well as Python for scripting and data handling.");
+        setAiResponse("On the backend, Nicole has strong proficiency in Java and Spring Boot for building robust APIs, as well as Python for scripting and data handling.");
       } else if (lowerQuery.includes("contact") || lowerQuery.includes("hire") || lowerQuery.includes("email")) {
-         setAiResponse("You can reach Nicole directly at hello@nicoleliang.com. Scroll to the bottom of the page to find the quick-contact terminal.");
+        setAiResponse("You can reach Nicole directly at hello@nicoleliang.com. Scroll to the bottom of the page to find the quick-contact terminal.");
       } else {
-         setAiResponse("I am the dossier AI assistant. I can fetch specific files regarding Nicole's technical stack, project history, or design architecture. Please try asking about 'React', 'Projects', or 'Backend'.");
+        setAiResponse("I am the dossier AI assistant. I can fetch specific files regarding Nicole's technical stack, project history, or design architecture. Please try asking about 'React', 'Projects', or 'Backend'.");
       }
       setIsAiTyping(false);
-      setAiQuery(""); 
-    }, 1500); 
+      setAiQuery("");
+    }, 1500);
   };
 
   const nameText = "NICOLE LIANG";
@@ -173,22 +173,22 @@ export default function Home() {
   return (
     <>
       <div className="p-8 md:p-16 max-w-7xl mx-auto flex flex-col relative z-10 overflow-hidden">
-        
+
         {/* --- DYNAMIC BACKGROUND WITH SOFT GRID --- */}
         <div className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none">
           <div className="absolute inset-0 bg-[#050505]" style={{
             backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
             backgroundSize: '40px 40px'
           }}></div>
-          
+
           {/* OPTIMIZED: Added willChange to prevent layout thrashing */}
-          <motion.div 
+          <motion.div
             className="w-[800px] h-[800px] pointer-events-none rounded-full"
-            style={{ 
-              x: mouseX, 
-              y: mouseY, 
-              translateX: "-50%", 
-              translateY: "-50%", 
+            style={{
+              x: mouseX,
+              y: mouseY,
+              translateX: "-50%",
+              translateY: "-50%",
               background: "radial-gradient(circle, rgba(229, 57, 53, 0.12) 0%, transparent 60%)",
               willChange: "transform"
             }}
@@ -197,7 +197,7 @@ export default function Home() {
 
         {/* --- 1. HERO SECTION --- */}
         <section id="hero" className="flex flex-col justify-start items-center relative pt-8 pb-12 min-h-[90vh] text-center w-full">
-          
+
           <div className="absolute top-8 left-8 z-30 flex flex-col items-start text-left">
             <motion.span initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease: premiumEase }} className="font-serif italic text-white/80 text-xl md:text-2xl tracking-wide">
               Computer Science.
@@ -206,17 +206,17 @@ export default function Home() {
               PORTFOLIO
             </motion.h2>
           </div>
-          
+
           <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[400px] md:h-[600px] z-10 pointer-events-none flex items-center justify-center">
-            <img 
-              src="/hand.png" 
-              alt="Cybernetic Hand" 
-              className="absolute h-[350px] md:h-[550px] object-contain opacity-90 mix-blend-screen drop-shadow-[0_0_40px_rgba(229,57,53,0.3)] z-10" 
+            <img
+              src="/hand.png"
+              alt="Cybernetic Hand"
+              className="absolute h-[350px] md:h-[550px] object-contain opacity-90 mix-blend-screen drop-shadow-[0_0_40px_rgba(229,57,53,0.3)] z-10"
             />
           </div>
 
           {/* OPTIMIZED: Added willChange */}
-          <motion.div 
+          <motion.div
             className="absolute top-[55%] left-1/2 w-[240px] md:w-[440px] h-[240px] md:h-[440px] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none hidden md:block"
             animate={{ rotate: 360 }}
             transition={{ repeat: Infinity, duration: 50, ease: "linear" }}
@@ -226,7 +226,7 @@ export default function Home() {
               const angle = (i / techPanels.length) * Math.PI * 2;
               const x = 50 + 50 * Math.cos(angle);
               const y = 50 + 50 * Math.sin(angle);
-              
+
               return (
                 <div key={panel.label} className="absolute" style={{ top: `${y}%`, left: `${x}%`, transform: 'translate(-50%, -50%)' }}>
                   <motion.div
@@ -246,8 +246,8 @@ export default function Home() {
           <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-full flex justify-center items-center mt-8">
             <motion.h1 variants={containerVariants} initial="hidden" animate="visible" className="font-serif text-[clamp(3rem,8vw,9rem)] font-bold tracking-tighter leading-none text-white cursor-default flex flex-row flex-nowrap whitespace-nowrap overflow-visible justify-center text-center w-full">
               {nameText.split("").map((char, index) => (
-                <motion.span 
-                  key={index} 
+                <motion.span
+                  key={index}
                   variants={letterVariants}
                   whileHover={{ y: -10, scale: 1.05, color: "#e53935" }}
                   transition={{ type: "spring", stiffness: 400, damping: 15 }}
@@ -262,43 +262,43 @@ export default function Home() {
 
         {/* --- 2. CLEAN MARQUEE (OPTIMIZED) --- */}
         <div className="w-[100vw] ml-[calc(-50vw+50%)] border-y border-white/10 bg-[#0a0a0a] py-3 overflow-hidden relative z-10 mt-12 mb-20">
-            <motion.div 
-              animate={{ x: ["0%", "-50%"] }} 
-              transition={{ repeat: Infinity, ease: "linear", duration: 30 }} 
-              style={{ willChange: "transform" }}
-              className="flex whitespace-nowrap font-mono text-xs md:text-sm tracking-[0.2em] text-white/80 w-max"
-            >
-                <div className="flex shrink-0 items-center">
-                  <span className="mx-6">CREATIVE DEVELOPER</span> <span className="text-white/40">◆</span>
-                  <span className="mx-6">FRONTEND ENGINEER</span> <span className="text-white/40">◆</span>
-                  <span className="mx-6">UI/UX DESIGNER</span> <span className="text-white/40">◆</span>
-                  <span className="mx-6">SOFTWARE ARCHITECT</span> <span className="text-white/40">◆</span>
-                </div>
-                <div className="flex shrink-0 items-center">
-                  <span className="mx-6">CREATIVE DEVELOPER</span> <span className="text-white/40">◆</span>
-                  <span className="mx-6">FRONTEND ENGINEER</span> <span className="text-white/40">◆</span>
-                  <span className="mx-6">UI/UX DESIGNER</span> <span className="text-white/40">◆</span>
-                  <span className="mx-6">SOFTWARE ARCHITECT</span> <span className="text-white/40">◆</span>
-                </div>
-            </motion.div>
+          <motion.div
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
+            style={{ willChange: "transform" }}
+            className="flex whitespace-nowrap font-mono text-xs md:text-sm tracking-[0.2em] text-white/80 w-max"
+          >
+            <div className="flex shrink-0 items-center">
+              <span className="mx-6">CREATIVE DEVELOPER</span> <span className="text-white/40">◆</span>
+              <span className="mx-6">FRONTEND ENGINEER</span> <span className="text-white/40">◆</span>
+              <span className="mx-6">UI/UX DESIGNER</span> <span className="text-white/40">◆</span>
+              <span className="mx-6">SOFTWARE ARCHITECT</span> <span className="text-white/40">◆</span>
+            </div>
+            <div className="flex shrink-0 items-center">
+              <span className="mx-6">CREATIVE DEVELOPER</span> <span className="text-white/40">◆</span>
+              <span className="mx-6">FRONTEND ENGINEER</span> <span className="text-white/40">◆</span>
+              <span className="mx-6">UI/UX DESIGNER</span> <span className="text-white/40">◆</span>
+              <span className="mx-6">SOFTWARE ARCHITECT</span> <span className="text-white/40">◆</span>
+            </div>
+          </motion.div>
         </div>
 
         {/* --- 3. 3D FOLDER WITH INDEX TABS & AI INPUT --- */}
         <section id="skills" className="relative flex flex-col items-center justify-center pt-20 mb-32 w-full">
-          
+
           <div className="overflow-hidden border-b border-white/10 pb-4 mb-24 flex justify-between items-end relative w-full">
-            <motion.h2 
-              initial={{ y: "100%" }} 
-              whileInView={{ y: 0 }} 
-              viewport={{ once: true, margin: "-100px" }} 
-              transition={{ duration: 0.8, ease: premiumEase }} 
+            <motion.h2
+              initial={{ y: "100%" }}
+              whileInView={{ y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: premiumEase }}
               className="font-serif text-4xl text-white cursor-default flex items-center gap-6"
             >
-              TECHNICAL_STACK 
+              TECHNICAL_STACK
             </motion.h2>
           </div>
 
-          <div 
+          <div
             className="relative w-full max-w-4xl h-[450px] md:h-[550px] flex items-end justify-center perspective-[1400px]"
             onMouseEnter={() => setIsFolderHovered(true)}
             onMouseLeave={() => {
@@ -308,29 +308,28 @@ export default function Home() {
           >
             {/* AMBIENT TECH DECORATIONS */}
             <div className="absolute inset-0 -z-10 pointer-events-none flex items-center justify-center">
-              <motion.div 
-                animate={{ rotate: 360 }} 
-                transition={{ repeat: Infinity, duration: 60, ease: "linear" }} 
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
                 style={{ willChange: "transform" }}
                 className="absolute w-[500px] h-[500px] rounded-full border border-dashed border-white/5 opacity-50"
               />
               <div className="absolute bottom-0 w-[550px] h-[300px] overflow-hidden">
                 {motes.map((mote, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ y: "100%", opacity: 0 }}
-                      animate={{ y: "-150%", opacity: [0, 1, 0] }}
-                      transition={{ repeat: Infinity, duration: mote.duration, delay: mote.delay, ease: "linear" }}
-                      style={{ willChange: "transform" }}
-                      className="absolute bottom-0 w-1 h-1 rounded-full bg-portfolioRed shadow-[0_0_5px_rgba(229,57,53,0.5)]"
-                      style={{ left: mote.left }}
-                    />
+                  <motion.div
+                    key={i}
+                    initial={{ y: "100%", opacity: 0 }}
+                    animate={{ y: "-150%", opacity: [0, 1, 0] }}
+                    transition={{ repeat: Infinity, duration: mote.duration, delay: mote.delay, ease: "linear" }}
+                    style={{ willChange: "transform", left: mote.left }}
+                    className="absolute bottom-0 w-1 h-1 rounded-full bg-portfolioRed shadow-[0_0_5px_rgba(229,57,53,0.5)]"
+                  />
                 ))}
               </div>
             </div>
 
             {/* NEON EDGE GLOW */}
-            <motion.div 
+            <motion.div
               animate={{ opacity: isFolderHovered ? 0 : 0.8 }}
               transition={{ duration: 0.3 }}
               className="absolute bottom-0 w-[95%] md:w-[650px] h-[380px] z-0 pointer-events-none rounded-t-xl"
@@ -343,100 +342,100 @@ export default function Home() {
 
             {/* Vertical Tabbed Cards Container */}
             <div className="absolute bottom-0 z-10 w-[90%] md:w-[610px] h-[380px] flex items-end justify-center pointer-events-none">
-                {folderCards.map((card, index) => {
-                  const isHovered = hoveredCard === card.id;
-                  return (
-                    <motion.div 
-                      key={card.id}
+              {folderCards.map((card, index) => {
+                const isHovered = hoveredCard === card.id;
+                return (
+                  <motion.div
+                    key={card.id}
+                    initial={false}
+                    onMouseEnter={() => setHoveredCard(card.id)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    animate={{
+                      y: isFolderHovered ? -60 : 0,
+                      zIndex: isHovered ? 50 : index + 10,
+                      borderColor: isHovered ? `${card.color}` : isFolderHovered ? `${card.color}60` : "rgba(255, 255, 255, 0.1)"
+                    }}
+                    transition={{ type: "spring", damping: 25, stiffness: 150 }}
+                    style={{ willChange: "transform" }}
+                    className={`absolute bottom-0 w-full h-full bg-[#0a0a0a] border pointer-events-auto cursor-pointer flex flex-col ${card.roundedClass}`}
+                  >
+                    {/* Inner Glow Hack (Performant alternative to boxShadow) */}
+                    <motion.div
                       initial={false}
-                      onMouseEnter={() => setHoveredCard(card.id)}
-                      onMouseLeave={() => setHoveredCard(null)}
+                      animate={{ opacity: isHovered ? 0.15 : 0 }}
+                      className="absolute inset-0 pointer-events-none"
+                      style={{ background: `radial-gradient(circle at 50% 0%, ${card.color}, transparent 60%)` }}
+                    />
+
+                    <motion.div
                       animate={{
-                        y: isFolderHovered ? -60 : 0,
-                        zIndex: isHovered ? 50 : index + 10,
-                        borderColor: isHovered ? `${card.color}` : isFolderHovered ? `${card.color}60` : "rgba(255, 255, 255, 0.1)"
+                        borderBottom: isHovered ? `1px solid ${card.color}` : isFolderHovered ? `1px solid ${card.color}60` : "1px solid #0a0a0a",
+                        borderColor: isHovered ? `${card.color}` : isFolderHovered ? `${card.color}60` : "rgba(255,255,255,0.1)",
                       }}
-                      transition={{ type: "spring", damping: 25, stiffness: 150 }}
-                      style={{ willChange: "transform" }}
-                      className={`absolute bottom-0 w-full h-full bg-[#0a0a0a] border pointer-events-auto cursor-pointer flex flex-col ${card.roundedClass}`}
+                      className="absolute h-10 flex items-center justify-center border-t border-l border-r bg-[#0a0a0a] rounded-t-xl z-20 group"
+                      style={{ left: card.tabLeft, width: "33.33%", top: "-39px" }}
                     >
-                      {/* Inner Glow Hack (Performant alternative to boxShadow) */}
-                      <motion.div 
-                        initial={false}
-                        animate={{ opacity: isHovered ? 0.15 : 0 }}
-                        className="absolute inset-0 pointer-events-none"
-                        style={{ background: `radial-gradient(circle at 50% 0%, ${card.color}, transparent 60%)` }}
-                      />
-
-                      <motion.div 
-                        animate={{
-                            borderBottom: isHovered ? `1px solid ${card.color}` : isFolderHovered ? `1px solid ${card.color}60` : "1px solid #0a0a0a",
-                            borderColor: isHovered ? `${card.color}` : isFolderHovered ? `${card.color}60` : "rgba(255,255,255,0.1)",
-                        }}
-                        className="absolute h-10 flex items-center justify-center border-t border-l border-r bg-[#0a0a0a] rounded-t-xl z-20 group"
-                        style={{ left: card.tabLeft, width: "33.33%", top: "-39px" }}
-                      >
-                         <span className="font-mono text-[10px] md:text-xs text-white/80 uppercase tracking-widest group-hover:text-white transition-colors flex items-center gap-2">
-                           {card.title}
-                         </span>
-                      </motion.div>
-
-                      <div className="w-full h-full relative z-10 p-6 md:p-8 flex flex-col">
-                        <div className="flex items-center gap-4 mb-6">
-                           <div className="w-12 h-12 rounded-lg border border-white/10 bg-[#111] flex items-center justify-center font-serif text-2xl font-bold" style={{ color: card.color }}>
-                             {card.letter}
-                           </div>
-                           <h3 className="font-serif text-2xl md:text-3xl text-white">
-                             {card.title}
-                           </h3>
-                        </div>
-                        
-                        <div className="mt-4 flex flex-col gap-6 w-full">
-                          {card.items.map((item, i) => (
-                            <div key={i} className="flex flex-col gap-2">
-                               <div className="flex justify-between font-mono text-xs md:text-sm text-gray-300">
-                                 <span>{item.name}</span>
-                               </div>
-                               <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden transform-gpu">
-                                  <motion.div 
-                                    initial={{ width: 0 }}
-                                    animate={{ width: isHovered ? `${item.level}%` : 0 }}
-                                    transition={{ duration: 0.6, delay: 0.1 + (i * 0.1), ease: premiumEase }}
-                                    className="h-full rounded-full"
-                                    style={{ backgroundColor: card.color, willChange: "width" }}
-                                  />
-                               </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+                      <span className="font-mono text-[10px] md:text-xs text-white/80 uppercase tracking-widest group-hover:text-white transition-colors flex items-center gap-2">
+                        {card.title}
+                      </span>
                     </motion.div>
-                  )
-                })}
+
+                    <div className="w-full h-full relative z-10 p-6 md:p-8 flex flex-col">
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-12 h-12 rounded-lg border border-white/10 bg-[#111] flex items-center justify-center font-serif text-2xl font-bold" style={{ color: card.color }}>
+                          {card.letter}
+                        </div>
+                        <h3 className="font-serif text-2xl md:text-3xl text-white">
+                          {card.title}
+                        </h3>
+                      </div>
+
+                      <div className="mt-4 flex flex-col gap-6 w-full">
+                        {card.items.map((item, i) => (
+                          <div key={i} className="flex flex-col gap-2">
+                            <div className="flex justify-between font-mono text-xs md:text-sm text-gray-300">
+                              <span>{item.name}</span>
+                            </div>
+                            <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden transform-gpu">
+                              <motion.div
+                                initial={{ width: 0 }}
+                                animate={{ width: isHovered ? `${item.level}%` : 0 }}
+                                transition={{ duration: 0.6, delay: 0.1 + (i * 0.1), ease: premiumEase }}
+                                className="h-full rounded-full"
+                                style={{ backgroundColor: card.color, willChange: "width" }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                )
+              })}
             </div>
 
             {/* Folder Front Flap */}
-            <motion.div 
-                style={{ transformOrigin: "bottom", willChange: "transform" }}
-                initial={false}
-                animate={{ 
-                  rotateX: isFolderHovered ? -75 : 0, 
-                  borderColor: isFolderHovered ? "rgba(229, 57, 53, 0.6)" : "rgba(255, 255, 255, 0.15)"
-                }} 
-                transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }} 
-                className="absolute bottom-0 w-[95%] md:w-[650px] h-[380px] bg-gradient-to-t from-[#050505] to-[#1a1a1a] rounded-t-xl border-t border-l border-r z-40 flex items-center justify-center pointer-events-none shadow-[0_-10px_30px_rgba(0,0,0,0.8)]"
+            <motion.div
+              style={{ transformOrigin: "bottom", willChange: "transform" }}
+              initial={false}
+              animate={{
+                rotateX: isFolderHovered ? -75 : 0,
+                borderColor: isFolderHovered ? "rgba(229, 57, 53, 0.6)" : "rgba(255, 255, 255, 0.15)"
+              }}
+              transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
+              className="absolute bottom-0 w-[95%] md:w-[650px] h-[380px] bg-gradient-to-t from-[#050505] to-[#1a1a1a] rounded-t-xl border-t border-l border-r z-40 flex items-center justify-center pointer-events-none shadow-[0_-10px_30px_rgba(0,0,0,0.8)]"
             >
-                <div className="w-full h-full flex flex-col justify-center items-center opacity-40 border-[8px] md:border-[12px] border-[#0a0a0a] rounded-t-xl p-4">
-                     <div className="w-full border-b-2 border-dashed border-white/50 mb-3"></div>
-                     <span className="font-mono text-xl md:text-3xl tracking-[0.5em] text-white/90">CONFIDENTIAL</span>
-                     <div className="w-full border-b-2 border-dashed border-white/50 mt-3"></div>
-                </div>
+              <div className="w-full h-full flex flex-col justify-center items-center opacity-40 border-[8px] md:border-[12px] border-[#0a0a0a] rounded-t-xl p-4">
+                <div className="w-full border-b-2 border-dashed border-white/50 mb-3"></div>
+                <span className="font-mono text-xl md:text-3xl tracking-[0.5em] text-white/90">CONFIDENTIAL</span>
+                <div className="w-full border-b-2 border-dashed border-white/50 mt-3"></div>
+              </div>
             </motion.div>
 
           </div>
 
           {/* AI PROMPT INPUT BOX */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -445,7 +444,7 @@ export default function Home() {
           >
             <div className="w-full relative">
               <div className="absolute -inset-[1px] bg-gradient-to-r from-orange-400 via-purple-500 to-blue-500 rounded-2xl opacity-30 blur-[4px] group-hover:opacity-50 transition duration-500 pointer-events-none"></div>
-              
+
               <form onSubmit={handleAiSubmit} className="relative bg-[#0d0d0f] rounded-2xl p-3 flex flex-col gap-4 border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.8)] w-full">
                 <div className="flex items-center px-3 pt-2">
                   <span className="text-gray-500 mr-3 text-lg font-light">|</span>
@@ -461,10 +460,10 @@ export default function Home() {
                 <div className="flex justify-between items-center px-1">
                   <div className="flex gap-2">
                     <button type="button" className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 transition-colors border border-white/5">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14" /></svg>
                     </button>
                     <button type="button" className="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 text-xs gap-1.5 transition-colors border border-white/5">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
                       Normal <span className="text-[10px] opacity-50 ml-1">⌄</span>
                     </button>
                   </div>
@@ -479,7 +478,7 @@ export default function Home() {
 
             <AnimatePresence>
               {(aiResponse || isAiTyping) && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, height: 0, y: -10 }}
                   animate={{ opacity: 1, height: "auto", y: 0 }}
                   exit={{ opacity: 0, height: 0, y: -10 }}
@@ -487,10 +486,10 @@ export default function Home() {
                 >
                   {isAiTyping ? (
                     <div className="flex items-center gap-1.5 text-gray-500 text-xs font-mono uppercase tracking-widest">
-                       <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0 }}>Searching</motion.span>
-                       <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.2 }}>.</motion.span>
-                       <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.4 }}>.</motion.span>
-                       <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.6 }}>.</motion.span>
+                      <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0 }}>Searching</motion.span>
+                      <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.2 }}>.</motion.span>
+                      <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.4 }}>.</motion.span>
+                      <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.6 }}>.</motion.span>
                     </div>
                   ) : (
                     <p className="font-mono text-sm text-gray-300 leading-relaxed">
@@ -507,17 +506,17 @@ export default function Home() {
         {/* --- 4. PROJECTS SECTION --- */}
         <section id="projects" className="min-h-screen pt-16 relative z-20">
           <div className="overflow-hidden border-b border-white/10 pb-4 mb-12 flex justify-between items-end relative">
-            <motion.h2 
+            <motion.h2
               initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: premiumEase }}
               className="font-serif text-4xl text-white"
             >
               SELECTED PROJECTS
             </motion.h2>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 relative">
             {projects.map((project, index) => (
-              <motion.div 
+              <motion.div
                 key={project.id}
                 initial={{ opacity: 0, scale: 0.98, y: 30 }}
                 whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -560,12 +559,12 @@ export default function Home() {
         {/* --- 5. FOOTER --- */}
         <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: premiumEase }} className="pt-16 pb-32">
           <div className="mt-32 pt-8 flex justify-between items-center border-t border-white/10 font-mono text-sm text-gray-500 relative">
-              <a href="mailto:hello@nicoleliang.com" className="hover:text-white transition-colors relative z-10">
-                hello@nicoleliang.com
-              </a>
-              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="bg-white text-black px-6 py-2 rounded-full font-serif italic text-xs tracking-widest hover:bg-portfolioRed hover:text-white transition-colors cursor-pointer relative z-10">
-                  N.L.
-              </motion.div>
+            <a href="mailto:hello@nicoleliang.com" className="hover:text-white transition-colors relative z-10">
+              hello@nicoleliang.com
+            </a>
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} className="bg-white text-black px-6 py-2 rounded-full font-serif italic text-xs tracking-widest hover:bg-portfolioRed hover:text-white transition-colors cursor-pointer relative z-10">
+              N.L.
+            </motion.div>
           </div>
         </motion.section>
       </div>
@@ -576,7 +575,7 @@ export default function Home() {
           <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 md:p-8">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer" onClick={() => setActiveProject(null)} />
             <motion.div initial={{ opacity: 0, y: 50, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 20, scale: 0.95 }} transition={{ duration: 0.4, ease: premiumEase }} className="relative w-full max-w-2xl bg-[#0a0a0a] border border-portfolioRed/40 rounded-3xl p-8 md:p-12 overflow-hidden cursor-default">
-              
+
               <div className="flex justify-between items-start mb-8 relative z-10">
                 <div>
                   <span className="font-mono text-xs text-portfolioRed tracking-widest mb-2 block uppercase">{activeProject.type}</span>
@@ -591,9 +590,9 @@ export default function Home() {
                 <p className="font-sans text-gray-300 leading-relaxed text-lg mb-8 font-light">{activeProject.longDesc}</p>
                 <div className="mb-4 font-mono text-xs text-gray-500 uppercase tracking-widest">Technologies Used</div>
                 <div className="flex flex-wrap gap-3">
-                  {activeProject.tech.map((t, i) => (
+                  {activeProject.tech.map((t) => (
                     <span key={t} className="bg-portfolioRed/10 text-portfolioRed px-4 py-2 rounded-lg border border-portfolioRed/20 font-mono text-xs flex items-center gap-2">
-                        ◆ {t}
+                      ◆ {t}
                     </span>
                   ))}
                 </div>
