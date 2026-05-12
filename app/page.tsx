@@ -94,7 +94,7 @@ const motes = [
 ];
 
 export default function Home() {
-  const premiumEase = [0.16, 1, 0.3, 1];
+  const premiumEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
   const [activeProject, setActiveProject] = useState<typeof projects[0] | null>(null);
 
