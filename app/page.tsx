@@ -82,6 +82,17 @@ const folderCards = [
   }
 ];
 
+// --- AMBIENT PARTICLES ---
+const motes = [
+  { left: "15%", delay: 0.2, duration: 3.5 },
+  { left: "28%", delay: 1.5, duration: 4.2 },
+  { left: "42%", delay: 0.8, duration: 5.0 },
+  { left: "55%", delay: 2.1, duration: 3.8 },
+  { left: "68%", delay: 0.5, duration: 4.5 },
+  { left: "82%", delay: 1.2, duration: 3.2 },
+  { left: "90%", delay: 2.5, duration: 4.8 },
+];
+
 export default function Home() {
   const premiumEase = [0.16, 1, 0.3, 1];
   
@@ -229,11 +240,46 @@ export default function Home() {
         <section id="skills" className="relative flex flex-col items-center justify-center pt-20 mb-40 w-full">
           
           <div className="overflow-hidden border-b border-white/10 pb-4 mb-32 flex justify-between items-end relative w-full">
-            <motion.h2 initial={{ y: "100%" }} whileInView={{ y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, ease: premiumEase }} className="font-serif text-4xl text-white cursor-default flex items-center gap-4">
+            <motion.h2 
+              initial={{ y: "100%" }} 
+              whileInView={{ y: 0 }} 
+              viewport={{ once: true, margin: "-100px" }} 
+              transition={{ duration: 0.8, ease: premiumEase }} 
+              className="font-serif text-4xl text-white cursor-default flex items-center gap-6"
+            >
               TECHNICAL_STACK 
-              <span className="font-mono text-[10px] bg-white/10 text-portfolioRed px-3 py-1 rounded-full uppercase tracking-widest border border-portfolioRed/30 animate-pulse">
-                Interact with Folder
-              </span>
+              
+              {/* --- NEW GLOWING PILL BADGE --- */}
+              <div className="relative flex items-center bg-[#0a0a0a] border border-white/10 rounded-full pl-4 pr-6 py-1.5 overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+                
+                {/* Plus Icon */}
+                <span className="text-[#e53935] font-light text-lg leading-none mr-3 mt-[-2px] relative z-10">
+                  +
+                </span>
+                
+                {/* Primary Action Text */}
+                <span className="font-mono text-[10px] md:text-xs text-white tracking-widest uppercase relative z-10 mt-[2px]">
+                  Interact
+                </span>
+                
+                {/* Red Separator Line with Spotlight Glow */}
+                <div className="relative mx-4 h-4 w-[2px] bg-[#e53935] z-10 shadow-[0_0_8px_#e53935]">
+                  <motion.div 
+                    animate={{ 
+                      opacity: [0.4, 0.8, 0.4], 
+                      width: ["50px", "80px", "50px"] 
+                    }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-1/2 left-0 -translate-y-1/2 h-8 bg-gradient-to-r from-[#e53935]/70 to-transparent blur-[6px] origin-left pointer-events-none"
+                  />
+                </div>
+                
+                {/* Secondary Context Text (Illuminated by the glow) */}
+                <span className="font-mono text-[10px] md:text-xs text-white/30 tracking-widest uppercase relative z-10 mt-[2px]">
+                  With Folder
+                </span>
+                
+              </div>
             </motion.h2>
           </div>
 
@@ -245,6 +291,60 @@ export default function Home() {
               setHoveredCard(null);
             }}
           >
+            {/* --- AMBIENT TECH DECORATIONS (SPARKS & RINGS) --- */}
+            <div className="absolute inset-0 -z-10 pointer-events-none flex items-center justify-center">
+              
+              {/* Pulsing Core Glow */}
+              <motion.div 
+                animate={{ 
+                  opacity: isFolderHovered ? 0.8 : [0.3, 0.5, 0.3], 
+                  scale: isFolderHovered ? 1.1 : [1, 1.05, 1] 
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute w-[60%] h-[60%] bg-portfolioRed/10 rounded-full blur-[80px]"
+              />
+
+              {/* Slow spinning dashed rings */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+                className="absolute w-[500px] h-[500px] rounded-full border border-dashed border-white/5 opacity-50"
+              />
+              <motion.div
+                animate={{ rotate: -360 }}
+                transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
+                className="absolute w-[650px] h-[650px] rounded-full border border-dotted border-portfolioRed/20 opacity-30"
+              />
+              
+              {/* Corner crosshairs framing the folder */}
+              <div className="absolute top-[15%] left-[5%] w-6 h-6 border-t-2 border-l-2 border-white/20"></div>
+              <div className="absolute top-[15%] right-[5%] w-6 h-6 border-t-2 border-r-2 border-white/20"></div>
+              <div className="absolute bottom-[5%] left-[5%] w-6 h-6 border-b-2 border-l-2 border-white/20"></div>
+              <div className="absolute bottom-[5%] right-[5%] w-6 h-6 border-b-2 border-r-2 border-white/20"></div>
+
+              {/* Floating Spark Particles */}
+              <div className="absolute bottom-0 w-[550px] h-[300px] overflow-hidden">
+                {motes.map((mote, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ y: "100%", opacity: 0 }}
+                      animate={{ 
+                        y: "-150%", 
+                        opacity: [0, 1, 0] 
+                      }}
+                      transition={{ 
+                        repeat: Infinity, 
+                        duration: mote.duration, 
+                        delay: mote.delay,
+                        ease: "linear" 
+                      }}
+                      className="absolute bottom-0 w-1 h-1 rounded-full bg-portfolioRed blur-[1px] shadow-[0_0_10px_rgba(229,57,53,0.8)]"
+                      style={{ left: mote.left }}
+                    />
+                ))}
+              </div>
+            </div>
+
             {/* --- Folder Back Cover --- */}
             <motion.div 
               animate={{
@@ -268,20 +368,18 @@ export default function Home() {
                       onMouseEnter={() => setHoveredCard(card.id)}
                       onMouseLeave={() => setHoveredCard(null)}
                       animate={{
-                        // Smoothly stays in place when hovered, only drops in when folder closes
                         y: isFolderHovered ? -60 : 0,
                         zIndex: isHovered ? 50 : index + 10,
-                        // --- DYNAMIC GLOWING EFFECTS ---
                         boxShadow: isHovered 
-                            ? `0 0 60px ${card.color}80, 0 20px 50px rgba(0,0,0,0.8)` // Intense Bright Glow on Hover
+                            ? `0 0 60px ${card.color}80, 0 20px 50px rgba(0,0,0,0.8)`
                             : isFolderHovered 
-                                ? `0 0 15px ${card.color}30` // Subtle Glow inside opened folder
-                                : "none", // No glow when closed
+                                ? `0 0 15px ${card.color}30`
+                                : "none",
                         borderColor: isHovered 
-                            ? `${card.color}` // Solid bright border
+                            ? `${card.color}`
                             : isFolderHovered 
-                                ? `${card.color}60` // Semi-transparent glowing border
-                                : "rgba(255, 255, 255, 0.1)" // Dull border when closed
+                                ? `${card.color}60`
+                                : "rgba(255, 255, 255, 0.1)"
                       }}
                       transition={{ type: "spring", damping: 20, stiffness: 120 }}
                       className={`absolute bottom-0 w-full h-full bg-[#0a0a0a]/95 backdrop-blur-md border pointer-events-auto cursor-pointer flex flex-col ${card.roundedClass}`}
