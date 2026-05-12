@@ -1,19 +1,20 @@
+/* IMPORTS MUST BE AT THE ABSOLUTE TOP */
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-portfolioBg: #050505; 
+  --color-portfolioBg: #050505; /* Deep, rich black */
   --color-portfolioRed: #e53935;
   --font-serif: "Playfair Display", serif;
   --font-mono: "JetBrains Mono", monospace;
-}
 
-/* FORCE NATIVE CURSORS TO PREVENT DISAPPEARING GLITCH */
-* {
-  cursor: default;
-}
-a, button, [role="button"], .cursor-pointer, .cursor-pointer * {
-  cursor: pointer !important;
+  /* --- EXISTING ANIMATIONS --- */
+  --animate-pulse-slow: pulseSlow 8s ease-in-out infinite;
+
+  @keyframes pulseSlow {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.1); }
+  }
 }
 
 html {
@@ -22,6 +23,7 @@ html {
 
 body {
   background-color: var(--color-portfolioBg);
+  /* A subtle, hardware-grid style background */
   background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 40px 40px;
   color: #e0e0e0;
@@ -39,11 +41,9 @@ body::after {
   z-index: 9999;
 }
 
-/* Premium hardware borders */
+/* Optimized, hardware-like glass panels (zero blur filter) */
 .glass-panel {
   background: rgba(15, 15, 15, 0.6); 
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08); 
   box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.05), 0 10px 30px -10px rgba(0,0,0,0.5);
 }
