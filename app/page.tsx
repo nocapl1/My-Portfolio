@@ -119,7 +119,7 @@ export default function Home() {
             />
           </div>
 
-          {/* FERRIS WHEEL - SCALED DOWN AND CLOSER TO HAND */}
+          {/* FERRIS WHEEL */}
           <motion.div 
             className="absolute top-[55%] left-1/2 w-[240px] md:w-[440px] h-[240px] md:h-[440px] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none hidden md:block"
             animate={{ rotate: 360 }}
@@ -149,11 +149,30 @@ export default function Home() {
             })}
           </motion.div>
 
-          {/* Centered Name Overlapping Hand */}
-          <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-full flex justify-center items-center pointer-events-none mt-8">
-            <motion.h1 variants={containerVariants} initial="hidden" animate="visible" className="font-serif text-[clamp(3rem,8vw,9rem)] font-bold tracking-tighter leading-none text-white drop-shadow-[0_10px_50px_rgba(0,0,0,1)] cursor-default flex flex-row flex-nowrap whitespace-nowrap overflow-visible justify-center text-center w-full">
+          {/* DYNAMIC & READABLE CENTERED NAME */}
+          <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-full flex justify-center items-center mt-8">
+            
+            {/* Contrast Shield: A soft blur behind the text to dim the hand slightly and boost readability */}
+            <div className="absolute w-[80%] max-w-[800px] h-[100px] bg-black/60 blur-[40px] rounded-full pointer-events-none -z-10"></div>
+
+            <motion.h1 variants={containerVariants} initial="hidden" animate="visible" className="font-serif text-[clamp(3rem,8vw,9rem)] font-bold tracking-tighter leading-none text-white cursor-default flex flex-row flex-nowrap whitespace-nowrap overflow-visible justify-center text-center w-full">
               {nameText.split("").map((char, index) => (
-                <motion.span key={index} variants={letterVariants}>{char === " " ? "\u00A0" : char}</motion.span>
+                <motion.span 
+                  key={index} 
+                  variants={letterVariants}
+                  // Interactive Wave Hover
+                  whileHover={{ 
+                      y: -15, 
+                      scale: 1.05, 
+                      color: "#e53935", 
+                      textShadow: "0px 15px 30px rgba(229,57,53,0.8)" 
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                  // Built-in deep shadow for baseline readability
+                  className="inline-block relative z-10 drop-shadow-[0_10px_15px_rgba(0,0,0,1)] transition-colors duration-300"
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
               ))}
             </motion.h1>
           </div>
