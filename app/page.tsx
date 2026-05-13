@@ -45,7 +45,7 @@ const folderCards = [
     id: 0,
     title: "LANGUAGES",
     letter: "L",
-    color: "#00d2ff", // Neon Blue
+    color: "#00d2ff", 
     tabLeft: "0%",
     roundedClass: "rounded-tl-none rounded-tr-xl rounded-b-xl",
     items: [
@@ -58,7 +58,7 @@ const folderCards = [
     id: 1,
     title: "FRAMEWORKS",
     letter: "F",
-    color: "#b20a2c", // Neon Red
+    color: "#b20a2c", 
     tabLeft: "33.33%",
     roundedClass: "rounded-xl",
     items: [
@@ -71,7 +71,7 @@ const folderCards = [
     id: 2,
     title: "TOOLING",
     letter: "T",
-    color: "#F27121", // Neon Orange
+    color: "#F27121", 
     tabLeft: "66.66%",
     roundedClass: "rounded-tr-none rounded-tl-xl rounded-b-xl",
     items: [
@@ -115,7 +115,6 @@ export default function Home() {
   useEffect(() => {
     let frameId: number;
     const handleMouseMove = (e: MouseEvent) => {
-      // Throttle mouse updates using requestAnimationFrame for better performance
       cancelAnimationFrame(frameId);
       frameId = requestAnimationFrame(() => {
         mouseX.set(e.clientX);
@@ -181,15 +180,14 @@ export default function Home() {
             backgroundSize: '40px 40px'
           }}></div>
 
-          {/* OPTIMIZED: Added willChange to prevent layout thrashing */}
           <motion.div
-            className="w-[800px] h-[800px] pointer-events-none rounded-full"
+            className="w-[300px] h-[300px] pointer-events-none rounded-full"
             style={{
               x: mouseX,
               y: mouseY,
               translateX: "-50%",
               translateY: "-50%",
-              background: "radial-gradient(circle, rgba(229, 57, 53, 0.12) 0%, transparent 60%)",
+              background: "radial-gradient(circle, rgba(255, 0, 0, 0.4) 0%, transparent 70%)",
               willChange: "transform"
             }}
           />
@@ -215,7 +213,6 @@ export default function Home() {
             />
           </div>
 
-          {/* OPTIMIZED: Added willChange */}
           <motion.div
             className="absolute top-[55%] left-1/2 w-[240px] md:w-[440px] h-[240px] md:h-[440px] -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none hidden md:block"
             animate={{ rotate: 360 }}
@@ -260,8 +257,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* --- 2. CLEAN MARQUEE (OPTIMIZED) --- */}
-        <div className="w-[100vw] ml-[calc(-50vw+50%)] border-y border-white/10 bg-[#0a0a0a] py-3 overflow-hidden relative z-10 mt-12 mb-20">
+        {/* --- 2. CLEAN MARQUEE --- */}
+        <div className="w-[100vw] ml-[calc(-50vw+50%)] border-y border-white/10 bg-[#0a0a0a] py-3 overflow-hidden relative z-10 mt-12 mb-8">
           <motion.div
             animate={{ x: ["0%", "-50%"] }}
             transition={{ repeat: Infinity, ease: "linear", duration: 30 }}
@@ -283,10 +280,10 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* --- 3. 3D FOLDER WITH INDEX TABS & AI INPUT --- */}
-        <section id="skills" className="relative flex flex-col items-center justify-center pt-20 mb-32 w-full">
+        {/* --- 3. 3D FOLDER & ABOUT ME BADGE --- */}
+        <section id="skills" className="relative flex flex-col pt-8 mb-32 w-full">
 
-          <div className="overflow-hidden border-b border-white/10 pb-4 mb-24 flex justify-between items-end relative w-full">
+          <div className="overflow-hidden border-b border-white/10 pb-4 mb-16 flex justify-between items-end relative w-full">
             <motion.h2
               initial={{ y: "100%" }}
               whileInView={{ y: 0 }}
@@ -294,213 +291,311 @@ export default function Home() {
               transition={{ duration: 0.8, ease: premiumEase }}
               className="font-serif text-4xl text-white cursor-default flex items-center gap-6"
             >
-              TECHNICAL_STACK
+              DOSSIER_FILES
             </motion.h2>
           </div>
 
-          <div
-            className="relative w-full max-w-4xl h-[450px] md:h-[550px] flex items-end justify-center perspective-[1400px]"
-            onMouseEnter={() => setIsFolderHovered(true)}
-            onMouseLeave={() => {
-              setIsFolderHovered(false);
-              setHoveredCard(null);
-            }}
-          >
-            {/* AMBIENT TECH DECORATIONS */}
-            <div className="absolute inset-0 -z-10 pointer-events-none flex items-center justify-center">
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
-                style={{ willChange: "transform" }}
-                className="absolute w-[500px] h-[500px] rounded-full border border-dashed border-white/5 opacity-50"
-              />
-              <div className="absolute bottom-0 w-[550px] h-[300px] overflow-hidden">
-                {motes.map((mote, i) => (
+          <div className="grid grid-cols-1 lg:grid-cols-[1.3fr_1fr] gap-12 w-full items-start">
+            
+            {/* LEFT COLUMN: Folder & AI Input (Shifted Up) */}
+            <div className="flex flex-col items-start w-full relative lg:-mt-[50px]">
+              <div
+                className="relative w-full max-w-[650px] h-[450px] md:h-[550px] flex items-end justify-start perspective-[1400px]"
+                onMouseEnter={() => setIsFolderHovered(true)}
+                onMouseLeave={() => {
+                  setIsFolderHovered(false);
+                  setHoveredCard(null);
+                }}
+              >
+                {/* AMBIENT TECH DECORATIONS */}
+                <div className="absolute inset-0 -z-10 pointer-events-none flex items-center justify-center">
                   <motion.div
-                    key={i}
-                    initial={{ y: "100%", opacity: 0 }}
-                    animate={{ y: "-150%", opacity: [0, 1, 0] }}
-                    transition={{ repeat: Infinity, duration: mote.duration, delay: mote.delay, ease: "linear" }}
-                    style={{ willChange: "transform", left: mote.left }}
-                    className="absolute bottom-0 w-1 h-1 rounded-full bg-portfolioRed shadow-[0_0_5px_rgba(229,57,53,0.5)]"
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* NEON EDGE GLOW */}
-            <motion.div
-              animate={{ opacity: isFolderHovered ? 0 : 0.8 }}
-              transition={{ duration: 0.3 }}
-              className="absolute bottom-0 w-[95%] md:w-[650px] h-[380px] z-0 pointer-events-none rounded-t-xl"
-            >
-              <div className="absolute inset-[-2px] md:inset-[-3px] rounded-t-xl blur-[10px]" style={{ background: 'linear-gradient(135deg, #00d2ff 0%, #a855f7 40%, #ec4899 70%, #f27121 100%)' }} />
-            </motion.div>
-
-            {/* Folder Back Cover */}
-            <div className="absolute bottom-0 w-[95%] md:w-[650px] h-[380px] bg-[#111] rounded-t-xl border-t border-l border-r border-white/10 z-0 shadow-2xl" />
-
-            {/* Vertical Tabbed Cards Container */}
-            <div className="absolute bottom-0 z-10 w-[90%] md:w-[610px] h-[380px] flex items-end justify-center pointer-events-none">
-              {folderCards.map((card, index) => {
-                const isHovered = hoveredCard === card.id;
-                return (
-                  <motion.div
-                    key={card.id}
-                    initial={false}
-                    onMouseEnter={() => setHoveredCard(card.id)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    animate={{
-                      y: isFolderHovered ? -60 : 0,
-                      zIndex: isHovered ? 50 : index + 10,
-                      borderColor: isHovered ? `${card.color}` : isFolderHovered ? `${card.color}60` : "rgba(255, 255, 255, 0.1)"
-                    }}
-                    transition={{ type: "spring", damping: 25, stiffness: 150 }}
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
                     style={{ willChange: "transform" }}
-                    className={`absolute bottom-0 w-full h-full bg-[#0a0a0a] border pointer-events-auto cursor-pointer flex flex-col ${card.roundedClass}`}
-                  >
-                    {/* Inner Glow Hack (Performant alternative to boxShadow) */}
-                    <motion.div
-                      initial={false}
-                      animate={{ opacity: isHovered ? 0.15 : 0 }}
-                      className="absolute inset-0 pointer-events-none"
-                      style={{ background: `radial-gradient(circle at 50% 0%, ${card.color}, transparent 60%)` }}
-                    />
-
-                    <motion.div
-                      animate={{
-                        borderBottom: isHovered ? `1px solid ${card.color}` : isFolderHovered ? `1px solid ${card.color}60` : "1px solid #0a0a0a",
-                        borderColor: isHovered ? `${card.color}` : isFolderHovered ? `${card.color}60` : "rgba(255,255,255,0.1)",
-                      }}
-                      className="absolute h-10 flex items-center justify-center border-t border-l border-r bg-[#0a0a0a] rounded-t-xl z-20 group"
-                      style={{ left: card.tabLeft, width: "33.33%", top: "-39px" }}
-                    >
-                      <span className="font-mono text-[10px] md:text-xs text-white/80 uppercase tracking-widest group-hover:text-white transition-colors flex items-center gap-2">
-                        {card.title}
-                      </span>
-                    </motion.div>
-
-                    <div className="w-full h-full relative z-10 p-6 md:p-8 flex flex-col">
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="w-12 h-12 rounded-lg border border-white/10 bg-[#111] flex items-center justify-center font-serif text-2xl font-bold" style={{ color: card.color }}>
-                          {card.letter}
-                        </div>
-                        <h3 className="font-serif text-2xl md:text-3xl text-white">
-                          {card.title}
-                        </h3>
-                      </div>
-
-                      <div className="mt-4 flex flex-col gap-6 w-full">
-                        {card.items.map((item, i) => (
-                          <div key={i} className="flex flex-col gap-2">
-                            <div className="flex justify-between font-mono text-xs md:text-sm text-gray-300">
-                              <span>{item.name}</span>
-                            </div>
-                            <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden transform-gpu">
-                              <motion.div
-                                initial={{ width: 0 }}
-                                animate={{ width: isHovered ? `${item.level}%` : 0 }}
-                                transition={{ duration: 0.6, delay: 0.1 + (i * 0.1), ease: premiumEase }}
-                                className="h-full rounded-full"
-                                style={{ backgroundColor: card.color, willChange: "width" }}
-                              />
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </div>
-
-            {/* Folder Front Flap */}
-            <motion.div
-              style={{ transformOrigin: "bottom", willChange: "transform" }}
-              initial={false}
-              animate={{
-                rotateX: isFolderHovered ? -75 : 0,
-                borderColor: isFolderHovered ? "rgba(229, 57, 53, 0.6)" : "rgba(255, 255, 255, 0.15)"
-              }}
-              transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
-              className="absolute bottom-0 w-[95%] md:w-[650px] h-[380px] bg-gradient-to-t from-[#050505] to-[#1a1a1a] rounded-t-xl border-t border-l border-r z-40 flex items-center justify-center pointer-events-none shadow-[0_-10px_30px_rgba(0,0,0,0.8)]"
-            >
-              <div className="w-full h-full flex flex-col justify-center items-center opacity-40 border-[8px] md:border-[12px] border-[#0a0a0a] rounded-t-xl p-4">
-                <div className="w-full border-b-2 border-dashed border-white/50 mb-3"></div>
-                <span className="font-mono text-xl md:text-3xl tracking-[0.5em] text-white/90">CONFIDENTIAL</span>
-                <div className="w-full border-b-2 border-dashed border-white/50 mt-3"></div>
-              </div>
-            </motion.div>
-
-          </div>
-
-          {/* AI PROMPT INPUT BOX */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="w-full max-w-2xl mt-16 relative group z-50 flex flex-col items-center"
-          >
-            <div className="w-full relative">
-              <div className="absolute -inset-[1px] bg-gradient-to-r from-orange-400 via-purple-500 to-blue-500 rounded-2xl opacity-30 blur-[4px] group-hover:opacity-50 transition duration-500 pointer-events-none"></div>
-
-              <form onSubmit={handleAiSubmit} className="relative bg-[#0d0d0f] rounded-2xl p-3 flex flex-col gap-4 border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.8)] w-full">
-                <div className="flex items-center px-3 pt-2">
-                  <span className="text-gray-500 mr-3 text-lg font-light">|</span>
-                  <input
-                    type="text"
-                    value={aiQuery}
-                    onChange={(e) => setAiQuery(e.target.value)}
-                    placeholder="Ask anything about my experience... (Press Enter)"
-                    className="w-full bg-transparent text-gray-200 placeholder-gray-500 focus:outline-none text-sm md:text-base font-sans"
-                    disabled={isAiTyping}
+                    className="absolute w-[400px] h-[400px] rounded-full border border-dashed border-white/5 opacity-50"
                   />
-                </div>
-                <div className="flex justify-between items-center px-1">
-                  <div className="flex gap-2">
-                    <button type="button" className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 transition-colors border border-white/5">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14" /></svg>
-                    </button>
-                    <button type="button" className="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 text-xs gap-1.5 transition-colors border border-white/5">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" /></svg>
-                      Normal <span className="text-[10px] opacity-50 ml-1">⌄</span>
-                    </button>
-                  </div>
-                  <div className="flex gap-2">
-                    <button type="submit" disabled={isAiTyping} className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#8A2387] via-[#E94057] to-[#F27121] flex items-center justify-center text-white transition-transform hover:scale-105 shadow-lg shadow-purple-500/20 disabled:opacity-50">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="-ml-[1px] mt-[1px]"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                    </button>
+                  <div className="absolute bottom-0 w-[550px] h-[300px] overflow-hidden">
+                    {motes.map((mote, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ y: "100%", opacity: 0 }}
+                        animate={{ y: "-150%", opacity: [0, 1, 0] }}
+                        transition={{ repeat: Infinity, duration: mote.duration, delay: mote.delay, ease: "linear" }}
+                        style={{ willChange: "transform", left: mote.left }}
+                        className="absolute bottom-0 w-1 h-1 rounded-full bg-portfolioRed shadow-[0_0_5px_rgba(229,57,53,0.5)]"
+                      />
+                    ))}
                   </div>
                 </div>
-              </form>
+
+                {/* NEON EDGE GLOW */}
+                <motion.div
+                  animate={{ opacity: isFolderHovered ? 0 : 0.8 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute bottom-0 w-[95%] md:w-full h-[380px] z-0 pointer-events-none rounded-t-xl"
+                >
+                  <div className="absolute inset-[-2px] md:inset-[-3px] rounded-t-xl blur-[10px]" style={{ background: 'linear-gradient(135deg, #00d2ff 0%, #a855f7 40%, #ec4899 70%, #f27121 100%)' }} />
+                </motion.div>
+
+                {/* Folder Back Cover */}
+                <div className="absolute bottom-0 w-[95%] md:w-full h-[380px] bg-[#111] rounded-t-xl border-t border-l border-r border-white/10 z-0 shadow-2xl" />
+
+                {/* Vertical Tabbed Cards Container */}
+                <div className="absolute bottom-0 z-10 w-[90%] md:w-[94%] h-[380px] flex items-end justify-start pointer-events-none ml-[2.5%]">
+                  {folderCards.map((card, index) => {
+                    const isHovered = hoveredCard === card.id;
+                    return (
+                      <motion.div
+                        key={card.id}
+                        initial={false}
+                        onMouseEnter={() => setHoveredCard(card.id)}
+                        onMouseLeave={() => setHoveredCard(null)}
+                        animate={{
+                          y: isFolderHovered ? -60 : 0,
+                          zIndex: isHovered ? 50 : index + 10,
+                          borderColor: isHovered ? `${card.color}` : isFolderHovered ? `${card.color}60` : "rgba(255, 255, 255, 0.1)"
+                        }}
+                        transition={{ type: "spring", damping: 25, stiffness: 150 }}
+                        style={{ willChange: "transform" }}
+                        className={`absolute bottom-0 w-full h-full bg-[#0a0a0a] border pointer-events-auto cursor-pointer flex flex-col ${card.roundedClass}`}
+                      >
+                        {/* Inner Glow */}
+                        <motion.div
+                          initial={false}
+                          animate={{ opacity: isHovered ? 0.15 : 0 }}
+                          className="absolute inset-0 pointer-events-none"
+                          style={{ background: `radial-gradient(circle at 50% 0%, ${card.color}, transparent 60%)` }}
+                        />
+
+                        <motion.div
+                          animate={{
+                            borderBottom: isHovered ? `1px solid ${card.color}` : isFolderHovered ? `1px solid ${card.color}60` : "1px solid #0a0a0a",
+                            borderColor: isHovered ? `${card.color}` : isFolderHovered ? `${card.color}60` : "rgba(255,255,255,0.1)",
+                          }}
+                          className="absolute h-10 flex items-center justify-center border-t border-l border-r bg-[#0a0a0a] rounded-t-xl z-20 group"
+                          style={{ left: card.tabLeft, width: "33.33%", top: "-39px" }}
+                        >
+                          <span className="font-mono text-[10px] md:text-xs text-white/80 uppercase tracking-widest group-hover:text-white transition-colors flex items-center gap-2">
+                            {card.title}
+                          </span>
+                        </motion.div>
+
+                        <div className="w-full h-full relative z-10 p-6 md:p-8 flex flex-col">
+                          <div className="flex items-center gap-4 mb-6">
+                            <div className="w-12 h-12 rounded-lg border border-white/10 bg-[#111] flex items-center justify-center font-serif text-2xl font-bold" style={{ color: card.color }}>
+                              {card.letter}
+                            </div>
+                            <h3 className="font-serif text-2xl md:text-3xl text-white">
+                              {card.title}
+                            </h3>
+                          </div>
+
+                          <div className="mt-4 flex flex-col gap-6 w-full">
+                            {card.items.map((item, i) => (
+                              <div key={i} className="flex flex-col gap-2">
+                                <div className="flex justify-between font-mono text-xs md:text-sm text-gray-300">
+                                  <span>{item.name}</span>
+                                </div>
+                                <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden transform-gpu">
+                                  <motion.div
+                                    initial={{ width: 0 }}
+                                    animate={{ width: isHovered ? `${item.level}%` : 0 }}
+                                    transition={{ duration: 0.6, delay: 0.1 + (i * 0.1), ease: premiumEase }}
+                                    className="h-full rounded-full"
+                                    style={{ backgroundColor: card.color, willChange: "width" }}
+                                  />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )
+                  })}
+                </div>
+
+                {/* Folder Front Flap */}
+                <motion.div
+                  style={{ transformOrigin: "bottom", willChange: "transform" }}
+                  initial={false}
+                  animate={{
+                    rotateX: isFolderHovered ? -75 : 0,
+                    borderColor: isFolderHovered ? "rgba(229, 57, 53, 0.6)" : "rgba(255, 255, 255, 0.15)"
+                  }}
+                  transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
+                  className="absolute bottom-0 w-[95%] md:w-full h-[380px] bg-gradient-to-t from-[#050505] to-[#1a1a1a] rounded-t-xl border-t border-l border-r z-40 flex items-center justify-center pointer-events-none shadow-[0_-10px_30px_rgba(0,0,0,0.8)]"
+                >
+                  <div className="w-full h-full flex flex-col justify-center items-center opacity-40 border-[8px] md:border-[12px] border-[#0a0a0a] rounded-t-xl p-4">
+                    <div className="w-full border-b-2 border-dashed border-white/50 mb-3"></div>
+                    <span className="font-mono text-xl md:text-3xl tracking-[0.5em] text-white/90">CONFIDENTIAL</span>
+                    <div className="w-full border-b-2 border-dashed border-white/50 mt-3"></div>
+                  </div>
+                </motion.div>
+
+              </div>
+
+              {/* AI PROMPT INPUT BOX */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="w-full mt-16 relative group z-50 flex flex-col items-start"
+              >
+                <div className="w-full relative max-w-[650px]">
+                  <div className="absolute -inset-[1px] bg-gradient-to-r from-[#e53935] to-[#f27121] rounded-2xl opacity-20 blur-[4px] group-hover:opacity-40 transition duration-500 pointer-events-none"></div>
+
+                  <form onSubmit={handleAiSubmit} className="relative bg-[#0d0d0f] rounded-2xl p-3 flex flex-col gap-4 border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.8)] w-full">
+                    <div className="flex items-center px-3 pt-2">
+                      <span className="text-[#e53935] mr-3 text-lg font-light">|</span>
+                      <input
+                        type="text"
+                        value={aiQuery}
+                        onChange={(e) => setAiQuery(e.target.value)}
+                        placeholder="Ask anything about my experience... (Press Enter)"
+                        className="w-full bg-transparent text-gray-200 placeholder-gray-600 focus:outline-none text-sm md:text-base font-sans"
+                        disabled={isAiTyping}
+                      />
+                    </div>
+                    <div className="flex justify-between items-center px-1">
+                      <div className="flex gap-2">
+                        <button type="button" className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/70 transition-colors border border-white/5">
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14" /></svg>
+                        </button>
+                      </div>
+                      <div className="flex gap-2">
+                        <button type="submit" disabled={isAiTyping} className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#e53935] to-[#f27121] flex items-center justify-center text-white transition-transform hover:scale-105 shadow-[0_0_15px_rgba(229,57,53,0.4)] disabled:opacity-50">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="-ml-[1px] mt-[1px]"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <AnimatePresence>
+                  {(aiResponse || isAiTyping) && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0, y: -10 }}
+                      animate={{ opacity: 1, height: "auto", y: 0 }}
+                      exit={{ opacity: 0, height: 0, y: -10 }}
+                      className="w-full max-w-[650px] bg-[#0d0d0f]/90 rounded-xl p-5 mt-4 border border-[#e53935]/30 shadow-xl overflow-hidden"
+                    >
+                      {isAiTyping ? (
+                        <div className="flex items-center gap-1.5 text-[#e53935] text-xs font-mono uppercase tracking-widest">
+                          <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0 }}>Searching</motion.span>
+                          <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.2 }}>.</motion.span>
+                          <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.4 }}>.</motion.span>
+                          <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.6 }}>.</motion.span>
+                        </div>
+                      ) : (
+                        <p className="font-mono text-sm text-gray-300 leading-relaxed">
+                          {aiResponse}
+                        </p>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             </div>
 
-            <AnimatePresence>
-              {(aiResponse || isAiTyping) && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0, y: -10 }}
-                  animate={{ opacity: 1, height: "auto", y: 0 }}
-                  exit={{ opacity: 0, height: 0, y: -10 }}
-                  className="w-[95%] bg-[#0d0d0f]/90 rounded-xl p-5 mt-4 border border-white/5 shadow-xl overflow-hidden"
-                >
-                  {isAiTyping ? (
-                    <div className="flex items-center gap-1.5 text-gray-500 text-xs font-mono uppercase tracking-widest">
-                      <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0 }}>Searching</motion.span>
-                      <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.2 }}>.</motion.span>
-                      <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.4 }}>.</motion.span>
-                      <motion.span animate={{ opacity: [0, 1, 0] }} transition={{ repeat: Infinity, duration: 1.2, delay: 0.6 }}>.</motion.span>
-                    </div>
-                  ) : (
-                    <p className="font-mono text-sm text-gray-300 leading-relaxed">
-                      {aiResponse}
-                    </p>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
+            {/* RIGHT COLUMN: 3D ID Badge / Lanyard (UI Restyled to match Dark/Neon theme) */}
+            <div className="relative flex justify-center items-start w-full h-full min-h-[500px] mt-16 lg:mt-0 lg:ml-8">
+              
+              <motion.div
+                animate={{ rotateZ: [-1.5, 1.5, -1.5], y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+                style={{ transformOrigin: "top center", willChange: "transform" }}
+                className="relative flex flex-col items-center"
+              >
+                {/* Lanyard Fabric Strap (Dark/Red Theme) */}
+                <div className="w-12 h-[120px] bg-gradient-to-r from-[#050505] via-[#e53935] to-[#050505] relative z-0 flex flex-col items-center justify-end pb-2 shadow-[inset_0_0_10px_rgba(0,0,0,0.8)]" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.2) 2px, rgba(0,0,0,0.2) 4px)'}}>
+                  <span className="text-white/60 text-[9px] uppercase tracking-[0.3em] -rotate-90 whitespace-nowrap mb-6 font-mono font-bold drop-shadow-md">ABOUT ME</span>
+                </div>
+                
+                {/* Metal Clip Mechanism */}
+                <div className="relative z-10 flex flex-col items-center -mt-2">
+                  <div className="w-10 h-6 bg-gradient-to-b from-[#333] to-[#111] rounded-t-lg border-x border-t border-white/20 shadow-md"></div>
+                  <div className="w-6 h-10 border-4 border-[#444] rounded-full -mt-2 shadow-[0_4px_10px_rgba(0,0,0,0.5)] bg-transparent relative z-20"></div>
+                </div>
 
+                {/* The ID Card Holder Stack */}
+                <div className="relative -mt-4 z-20 group perspective-[1000px]">
+                  
+                  {/* Background Slanted Card (Dark/Glassy) */}
+                  <div className="absolute top-0 left-0 w-[300px] md:w-[340px] h-[460px] bg-[#0a0a0a] rounded-[20px] -z-10 shadow-[0_0_20px_rgba(229,57,53,0.15)] transform -rotate-6 translate-x-[-15px] border border-white/10 overflow-hidden">
+                    <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'linear-gradient(30deg, #e53935 12%, transparent 12.5%, transparent 87%, #e53935 87.5%, #e53935), linear-gradient(150deg, #e53935 12%, transparent 12.5%, transparent 87%, #e53935 87.5%, #e53935), linear-gradient(30deg, #e53935 12%, transparent 12.5%, transparent 87%, #e53935 87.5%, #e53935), linear-gradient(150deg, #e53935 12%, transparent 12.5%, transparent 87%, #e53935 87.5%, #e53935)', backgroundSize: '40px 70px', backgroundPosition: '0 0, 0 0, 20px 35px, 20px 35px' }}></div>
+                    <div className="absolute bottom-6 left-6 rotate-6 font-mono text-xs text-[#e53935] font-bold tracking-widest">SECONDARY<br/>ACCESS</div>
+                  </div>
+
+                  {/* Main ID Card Foreground */}
+                  <div className="w-[300px] md:w-[340px] h-[460px] rounded-[20px] relative overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.8),0_0_15px_rgba(229,57,53,0.2)] border border-white/10 bg-[#050505]">
+                    {/* Cinematic Abstract Background for Card */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] via-[#0a0a0a] to-[#111] opacity-90"></div>
+                    
+                    {/* Glass Overlay Effects */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-black/60 mix-blend-overlay pointer-events-none"></div>
+                    
+                    {/* Punch Hole */}
+                    <div className="absolute top-4 left-1/2 -translate-x-1/2 w-14 h-3 bg-black rounded-full border border-white/5 shadow-[inset_0_2px_4px_rgba(0,0,0,0.8)] z-30"></div>
+
+                    <div className="relative z-20 w-full h-full flex flex-col pt-12">
+                      {/* Top Labels */}
+                      <div className="flex justify-between items-center px-6 pb-4 border-b border-white/5">
+                        <span className="text-[9px] font-mono text-white/50 tracking-widest uppercase bg-white/5 px-2 py-0.5 rounded-sm border border-white/5">Identity Pass</span>
+                        <span className="text-[9px] font-mono text-[#e53935] tracking-widest uppercase flex items-center gap-1">
+                          <span className="w-1 h-1 rounded-full bg-[#e53935] animate-pulse"></span>
+                          Active
+                        </span>
+                      </div>
+
+                      {/* Name and Role Section */}
+                      <div className="px-6 mt-8 flex-grow">
+                        <h2 className="font-serif text-[40px] md:text-[46px] text-white font-bold leading-[1.1] mb-3 tracking-tight">
+                          Nicole<br/>Liang
+                        </h2>
+                        <div className="h-[2px] w-12 bg-[#e53935] shadow-[0_0_8px_#e53935] mb-4"></div>
+                        <p className="font-mono text-xs md:text-sm text-gray-300 uppercase tracking-widest mb-6 leading-relaxed">
+                          Software Architect<br/>
+                          <span className="opacity-50 text-[10px] text-white">Creative Engineer</span>
+                        </p>
+                        
+                        <p className="font-sans text-xs text-gray-500 leading-relaxed font-light mt-4">
+                          Specializing in bridging the gap between high-performance systems and cinematic frontend experiences.
+                        </p>
+                      </div>
+
+                      {/* Meta Information Grid */}
+                      <div className="px-6 py-5 bg-[#0a0a0a]/80 backdrop-blur-md border-t border-white/5">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <span className="block text-[8px] font-mono text-gray-600 uppercase tracking-widest mb-1">Reference ID</span>
+                            <span className="block text-xs font-mono text-gray-300">#NL-84920</span>
+                          </div>
+                          <div>
+                            <span className="block text-[8px] font-mono text-gray-600 uppercase tracking-widest mb-1">Clearance</span>
+                            <span className="block text-xs font-mono text-[#e53935]">Level: ROOT</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Logo Area */}
+                      <div className="px-6 py-4 bg-gradient-to-r from-black/80 to-transparent flex items-center gap-3">
+                        <div className="w-5 h-5 flex items-center justify-center border border-[#e53935]/50 rotate-45 bg-[#e53935]/10">
+                          <div className="w-1.5 h-1.5 bg-[#e53935]"></div>
+                        </div>
+                        <div>
+                          <span className="block font-serif text-sm text-white/80 tracking-widest uppercase">NL Studio</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </motion.div>
+            </div>
+            
+          </div>
         </section>
 
         {/* --- 4. PROJECTS SECTION --- */}
