@@ -1,3 +1,5 @@
+Project work in progress ~ Last Updated 05/13/26 8:21pm EST
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
